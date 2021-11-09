@@ -2,6 +2,9 @@
     "bamarni/composer-bin-plugin": {
         "version": "1.4.1"
     },
+    "chanshige/object-hydrator": {
+        "version": "v2.2.0"
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {
@@ -221,6 +224,9 @@
         "version": "v5.4.0-BETA1"
     },
     "symfony/security-http": {
+        "version": "v6.0.0-BETA1"
+    },
+    "symfony/serializer": {
         "version": "v6.0.0-BETA1"
     },
     "symfony/service-contracts": {

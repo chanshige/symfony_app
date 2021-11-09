@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use Chanshige\Hydrator\ObjectHydratorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -11,7 +12,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class RequestObjectResolver implements ArgumentValueResolverInterface
 {
     public function __construct(
-      private ValidatorInterface $validator
+        private ValidatorInterface      $validator,
+        private ObjectHydratorInterface $hydrator
     ) {
     }
 
@@ -23,8 +25,10 @@ class RequestObjectResolver implements ArgumentValueResolverInterface
 
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
-        $class = $argument->getType();
-        $dto = new $class($request);
+        $dto = $this->hydrator->hydrate(
+            $request->query->all(),
+            sprintf('\\%s', $argument->getType())
+        );
 
         $errors = $this->validator->validate($dto);
         if ($errors->count() > 0) {
