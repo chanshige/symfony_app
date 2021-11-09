@@ -19,7 +19,13 @@ services:
 
     App\Controller\:
         resource: '../src/Controller/'
-        tags: [ 'controller.service_arguments' ]
+        tags:
+            - { name: controller.service_arguments }
+
+    App\Service\RequestObjectResolver:
+        arguments: ['@validator']
+        tags:
+            - { name: controller.argument_value_resolver, priority: 50 }
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

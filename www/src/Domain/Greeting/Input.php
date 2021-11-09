@@ -2,13 +2,18 @@
 
 namespace App\Domain\Greeting;
 
+use App\Service\RequestObjectInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final class Input
+final class Input implements RequestObjectInterface
 {
-    public function __construct(
-        #[Assert\Length(min: 8, max: 40)] private string $username
-    ) {
+    #[Assert\Length(min: 8, max: 40)]
+    private string $username;
+
+    public function __construct(Request $request)
+    {
+        $this->username = $request->get('username', '');
     }
 
     public function username(): string
