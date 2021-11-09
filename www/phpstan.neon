@@ -1,0 +1,7 @@
+parameters:
+  level: 6
+  paths:
+    - app
+    - tests
+includes:
+    - vendor-bin/qa/vendor/phpstan/phpstan-mockery/extension.neon
