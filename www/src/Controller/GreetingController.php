@@ -2,15 +2,17 @@
 
 namespace App\Controller;
 
-use App\Domain\Greeting\Input;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class GreetingController
 {
-    #[Route(path: '/greeting', methods: ['GET', 'HEAD'])]
-    public function __invoke(ValidatorInterface $validator)
+    #[Route(path: '/greeting')]
+    public function index(LoggerInterface $logger)
     {
-        $validator->validate(new Input('abc'));
+        $logger->info('autowired !!!!!!!!');
+
+        return new JsonResponse(['greeting' => sprintf('Hi! %s Hello.', 'test')]);
     }
 }
