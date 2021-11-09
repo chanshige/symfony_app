@@ -2,10 +2,12 @@
 
 namespace App\Domain\Greeting;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 final class Input
 {
     public function __construct(
-        private string $username = ''
+        #[Assert\Length(min: 8, max: 40)] private string $username
     ) {
     }
 

@@ -3,17 +3,14 @@
 namespace App\Controller;
 
 use App\Domain\Greeting\Input;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class GreetingController
 {
     #[Route(path: '/greeting', methods: ['GET', 'HEAD'])]
-    public function __invoke(Request $request)
+    public function __invoke(ValidatorInterface $validator)
     {
-        $input = new Input($request->get('username', ''));
-
-        return new JsonResponse(['greeting' => sprintf('Hi! %s Hello.', $input->username())]);
+        $validator->validate(new Input('abc'));
     }
 }
