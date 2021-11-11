@@ -23,7 +23,6 @@ services:
             - { name: controller.service_arguments }
 
     App\Service\RequestObjectResolver:
-        arguments: ['@validator']
         tags:
             - { name: controller.argument_value_resolver, priority: 50 }
 

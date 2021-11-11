@@ -8,18 +8,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 final class Input implements RequestObjectInterface
 {
     public function __construct(
-        #[Assert\NotNull] private ?string $id,
-        #[Assert\Length(min: 8, max: 40)] private string $username = ''
+        #[Assert\Length(min: 8, max: 40)] private ?string $name
     ) {
     }
 
-    public function getId(): ?string
+    public function name(): ?string
     {
-        return $this->id;
-    }
-
-    public function username(): string
-    {
-        return $this->username;
+        return $this->name;
     }
 }
