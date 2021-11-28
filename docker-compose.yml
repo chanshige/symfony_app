@@ -31,7 +31,7 @@ services:
       context: ./
       dockerfile: docker/development/database/Dockerfile
     volumes:
-      - pgsql_data:/var/lib/postgresql/data
+      - pgsql_data:/var/lib/postgresql/data:rw
     ports:
       - "54320:5432"
     environment:
