@@ -1,4 +1,4 @@
-FROM php:8.0.11-fpm-alpine3.14
+FROM php:8.1.0RC6-fpm-alpine3.14
 LABEL maintainer="dev@shigeki.tokyo"
 
 COPY ./docker/development/php/php.ini /usr/local/etc/php/
