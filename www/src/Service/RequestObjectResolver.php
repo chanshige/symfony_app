@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Service;
 
 use Chanshige\Hydrator\ObjectHydratorInterface;
@@ -9,10 +11,13 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+use function is_subclass_of;
+use function sprintf;
+
 class RequestObjectResolver implements ArgumentValueResolverInterface
 {
     public function __construct(
-        private ValidatorInterface      $validator,
+        private ValidatorInterface $validator,
         private ObjectHydratorInterface $hydrator
     ) {
     }

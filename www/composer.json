@@ -69,8 +69,8 @@
         "test": "./vendor/bin/phpunit",
         "coverage": "php -dzend_extension=xdebug.so -dxdebug.mode=coverage ./vendor/bin/phpunit --coverage-text --coverage-html=build/coverage",
         "cs": "./vendor/bin/phpcs",
-        "cs-fix": "./vendor/bin/phpcbf app tests",
-        "metrics": "./vendor/bin/phpmetrics --report-html=build/metrics --exclude=Exception app",
+        "cs-fix": "./vendor/bin/phpcbf src tests",
+        "metrics": "./vendor/bin/phpmetrics --report-html=build/metrics --exclude=Exception src",
         "clean": [
             "./vendor/bin/phpstan clear-result-cache",
             "./vendor/bin/psalm --clear-cache"

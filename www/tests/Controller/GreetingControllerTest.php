@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class GreetingControllerTest extends WebTestCase
 {
-    public function testGreet()
+    public function testGreet(): void
     {
         $client = static::createClient();
         $client->setServerParameter('HTTP_ACCEPT', 'application/json');
@@ -17,7 +19,7 @@ class GreetingControllerTest extends WebTestCase
         $this->assertSame('{"greeting":"Hello chanshige"}', $client->getResponse()->getContent());
     }
 
-    public function testGreetFail()
+    public function testGreetFail(): void
     {
         $client = static::createClient();
         $client->setServerParameter('HTTP_ACCEPT', 'application/json');
