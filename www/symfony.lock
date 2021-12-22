@@ -91,6 +91,9 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "koriym/http-constants": {
+        "version": "1.2.1"
+    },
     "laminas/laminas-code": {
         "version": "4.4.3"
     },
@@ -182,6 +185,9 @@
     },
     "psr/log": {
         "version": "3.0.0"
+    },
+    "rize/uri-template": {
+        "version": "0.3.4"
     },
     "sebastian/cli-parser": {
         "version": "1.0.1"

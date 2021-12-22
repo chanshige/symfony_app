@@ -1,0 +1,4 @@
+services:
+  Chanshige\HalJsonResponseBundle\EventListener\AnnotationSubscriber:
+    tags:
+      - { name: kernel.event_subscriber }
