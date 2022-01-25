@@ -10,6 +10,7 @@ services:
       - "8080:80"
     volumes:
       - ./www/public:/var/www/public
+      - ./www/var/run/php:/var/run/php
     depends_on:
       - php
     environment:
@@ -21,7 +22,12 @@ services:
       context: ./
       dockerfile: docker/development/php/Dockerfile
     volumes:
-      - ./www:/var/www
+      - ./www:/var/www:rw
+      - ./www/var/run/php:/var/run/php
+    healthcheck:
+      interval: 10s
+      timeout: 3s
+      retries: 3
     links:
       - database
 
