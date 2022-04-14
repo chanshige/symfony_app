@@ -127,6 +127,9 @@
     "nikic/php-parser": {
         "version": "v4.13.1"
     },
+    "nocarrier/hal": {
+        "version": "0.9.14"
+    },
     "phar-io/manifest": {
         "version": "2.0.3"
     },
@@ -182,6 +185,9 @@
     },
     "psr/event-dispatcher": {
         "version": "1.0.0"
+    },
+    "psr/link": {
+        "version": "1.1.1"
     },
     "psr/log": {
         "version": "3.0.0"
@@ -325,9 +331,6 @@
             "src/Controller/.gitignore"
         ]
     },
-    "symfony/http-client-contracts": {
-        "version": "v2.4.0"
-    },
     "symfony/http-foundation": {
         "version": "v6.0.0-BETA1"
     },
@@ -439,9 +442,6 @@
     },
     "symfony/security-csrf": {
         "version": "v6.0.0-BETA1"
-    },
-    "symfony/security-guard": {
-        "version": "v5.4.0-BETA1"
     },
     "symfony/security-http": {
         "version": "v6.0.0-BETA1"

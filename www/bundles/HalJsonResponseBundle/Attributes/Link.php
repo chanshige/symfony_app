@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Chanshige\HalJsonResponseBundle\Annotation;
+namespace Chanshige\HalJsonResponseBundle\Attributes;
 
 use Attribute;
 

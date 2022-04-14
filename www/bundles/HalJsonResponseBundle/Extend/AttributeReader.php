@@ -5,19 +5,17 @@ declare(strict_types=1);
 namespace Chanshige\HalJsonResponseBundle\Extend;
 
 use ReflectionMethod;
+use Traversable;
 
 class AttributeReader
 {
     /**
-     * @return array<int, object>
+     * @return Traversable
      */
-    public function getMethodAttributes(ReflectionMethod $method): array
+    public function getMethodAttributes(ReflectionMethod $method, ?string $name = null): Traversable
     {
-        $attributes = [];
-        foreach ($method->getAttributes() as $ref) {
-            $attributes[] = $ref->newInstance();
+        foreach ($method->getAttributes($name) as $ref) {
+            yield $ref->newInstance();
         }
-
-        return $attributes;
     }
 }

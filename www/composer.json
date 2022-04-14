@@ -15,6 +15,7 @@
         "doctrine/orm": "^2.10",
         "koriym/http-constants": "^1.2",
         "lexik/jwt-authentication-bundle": "^2.14",
+        "nocarrier/hal": "^0.9.14",
         "rize/uri-template": "^0.3.4",
         "symfony/console": "6.0.*",
         "symfony/dotenv": "6.0.*",

@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Domain\Greeting\Input;
-use Chanshige\HalJsonResponseBundle\Annotation\Link;
-use Chanshige\HalJsonResponseBundle\Annotation\Response;
+use Chanshige\HalJsonResponseBundle\Attributes\Link;
+use Chanshige\HalJsonResponseBundle\Contracts\HalJsonResponseInterface;
 use Symfony\Component\Routing\Annotation\Route;
-
-use function sprintf;
 
 class GreetingController
 {
+    public function __construct(
+        private HalJsonResponseInterface $response
+    ) {
+    }
+
     #[Route(path: '/greeting', methods: ['HEAD', 'GET'])]
-    #[Response(statusCode: 200)]
-    #[Link(rel: 'users', href: '/users{?greeting}')]
-    public function index(Input $input): array
+    #[link(rel: 'link1', href: '/users{?greeting}')]
+    #[link(rel: 'link2', href: '/users{?greeting}')]
+    public function index()
     {
-        return [
-            'greeting' => sprintf('Hello %s', $input->name())
-        ];
+        return $this->response->withContent(['greeting' => 'Hi! chanshige']);
     }
 }
