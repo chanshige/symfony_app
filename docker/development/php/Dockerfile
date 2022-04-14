@@ -1,4 +1,4 @@
-FROM php:8.1.2-fpm-alpine3.14
+FROM php:8.1.4-fpm-alpine3.15
 LABEL maintainer="dev@shigeki.tokyo"
 
 COPY ./docker/development/php/conf.d/php.ini /usr/local/etc/php/
@@ -8,14 +8,6 @@ COPY ./docker/development/php/docker-healthcheck.sh /usr/local/bin/docker-health
 RUN chmod +x /usr/local/bin/docker-healthcheck
 
 HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD ["docker-healthcheck"]
-
-ENV COMPOSER_ALLOW_SUPERUSER 1
-ENV COMPOSER_NO_INTERACTION 1
-ENV COMPOSER_MEMORY_LIMIT -1
-ENV COMPOSER_HOME /composer
-ENV PATH $PATH:/composer/vendor/bin
-
-COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 RUN apk upgrade --update \
   && apk --no-cache add --virtual .build-dependencies \
@@ -30,12 +22,7 @@ RUN apk upgrade --update \
   oniguruma-dev \
   postgresql-dev \
   && apk --no-cache add \
-  acl \
   fcgi \
-  file \
-  gettext \
-  git \
-  gnu-libiconv \
   postgresql-client \
   libzip-dev \
   icu-dev \
@@ -73,6 +60,16 @@ RUN addgroup -S www-user \
     && adduser -S www-user -G www-user www-data \
     && echo "www-user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
     && echo 'www-user:www-user' | chpasswd
+
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
+ENV COMPOSER_ALLOW_SUPERUSER 1
+ENV COMPOSER_NO_INTERACTION 1
+ENV COMPOSER_MEMORY_LIMIT -1
+# TODO: homedirのパス設定を考える
+ENV COMPOSER_HOME /home/www-user/.composer
+ENV COMPOSER_CACHE_DIR /home/www-user/.caches/composer
+ENV PATH /home/www-user/.composer/vendor/bin:$PATH
 
 USER www-user
 WORKDIR /var/www
