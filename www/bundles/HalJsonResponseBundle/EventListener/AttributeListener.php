@@ -40,9 +40,10 @@ final class AttributeListener
      */
     private function getReflectionMethod(callable $controller): ReflectionMethod
     {
-        return new ReflectionMethod(
-            $controller[0] ?? $controller,
-            is_object($controller) && method_exists($controller, '__invoke') ? '__invoke' : $controller[1]
-        );
+        if (is_object($controller) && method_exists($controller, '__invoke')) {
+            return new ReflectionMethod($controller, '__invoke');
+        }
+
+        return new ReflectionMethod($controller[0], $controller[1]);
     }
 }
