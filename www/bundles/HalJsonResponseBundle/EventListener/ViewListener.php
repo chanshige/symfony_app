@@ -8,7 +8,6 @@ use Chanshige\HalJsonResponseBundle\Contracts\HalJsonResponseInterface;
 use Chanshige\HalJsonResponseBundle\Contracts\HalLinkInterface;
 use Nocarrier\Hal;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Traversable;
 
@@ -24,32 +23,29 @@ final class ViewListener
     public function onKernelView(ViewEvent $event): void
     {
         $request = $event->getRequest();
-        $context = $event->getControllerResult();
-        assert($context instanceof HalJsonResponseInterface);
+        $result = $event->getControllerResult();
+        assert($result instanceof HalJsonResponseInterface);
 
         $hal = $this->getHal(
-            $request,
+            $result->getContent(),
             $request->attributes->get(AttributeListener::HAL_JSON_RESPONSE_LINK_ATTRIBUTES),
-            $context->getContent()
+            $request->getPathInfo(),
+            $request->getQueryString()
         );
 
         $event->setResponse(
             JsonResponse::fromJsonString(
                 $hal->asJson(true),
-                $context->getCode(),
-                $context->getHeaders()
+                $result->getCode(),
+                $result->getHeaders()
             )
         );
     }
 
-    /**
-     * @param Traversable<int, object> $attributes
-     * @param array                    $content
-     */
-    private function getHal(Request $request, Traversable $attributes, array $content): Hal
+    private function getHal(array $content, Traversable $attributes, string $path, ?string $query): Hal
     {
-        $qs = ($qs = $request->getQueryString()) !== null ? '?' . $qs : '';
-        $hal = new Hal($request->getPathInfo() . $qs, $content);
+        $qs = $query !== null ? '?' . $query : '';
+        $hal = new Hal($path . $qs, $content);
 
         return $this->link->add($content, $attributes, $hal);
     }

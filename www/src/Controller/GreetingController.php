@@ -16,8 +16,8 @@ class GreetingController
     }
 
     #[Route(path: '/greeting', methods: ['HEAD', 'GET'])]
-    #[link(rel: 'link1', href: '/users{?greeting}')]
-    #[link(rel: 'link2', href: '/users{?greeting}')]
+    #[Link(rel: 'link1', href: '/users{?greeting}')]
+    #[Link(rel: 'link2', href: '/users{?greeting}')]
     public function index()
     {
         return $this->response->withContent(['greeting' => 'Hi! chanshige']);

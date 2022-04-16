@@ -1,20 +1,18 @@
 services:
-  hal_json_response.attribute_reader:
-    class: Chanshige\HalJsonResponseBundle\Extend\AttributeReader
-
-  Chanshige\HalJsonResponseBundle\Contracts\HalLinkInterface:
-    class: Chanshige\HalJsonResponseBundle\HalLink
-
   Chanshige\HalJsonResponseBundle\EventListener\AttributeListener:
     arguments:
-      $reader: '@hal_json_response.attribute_reader'
+      $reader: '@Chanshige\HalJsonResponseBundle\Extend\AttributeReader'
     tags:
       - { name: kernel.event_listener, event: kernel.controller }
 
   Chanshige\HalJsonResponseBundle\EventListener\ViewListener:
-    autowire: true
+    arguments:
+      $link: '@Chanshige\HalJsonResponseBundle\HalLink'
     tags:
       - { name: kernel.event_listener, event: kernel.view }
 
   Chanshige\HalJsonResponseBundle\Contracts\HalJsonResponseInterface:
     class: Chanshige\HalJsonResponseBundle\HalJsonResponse
+
+  Chanshige\HalJsonResponseBundle\Extend\AttributeReader:
+  Chanshige\HalJsonResponseBundle\HalLink:
